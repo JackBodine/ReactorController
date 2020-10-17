@@ -1,4 +1,5 @@
 import time
+import os
 
 def test(): 
   myReactor = simulatedReactor
@@ -29,9 +30,11 @@ class simulatedReactor:
       print("ERROR")
 
   def updateTemp(self):
-    self.temperature = 21 - ((760000/self.pressure))
+    self.temperature = 40 - ((760000/self.pressure)*20)
 
   def displayInfo(self):
+    os.system('cls' if os.name == 'nt' else 'clear')
+    #This is only for testing purposes. The controller will need to get and print this data. 
     self.updateTemp()
     print("Reactor Temperature: ", self.temperature)
     print("Reactor Pressure: ", self.pressure)
