@@ -11,7 +11,7 @@ class simulatedReactor:
   current = 0
 
   def __init__(self):
-    self.pressure = 760000   #This is the avg. pressure at sea level.
+    self.pressure = 760         #Normal pressure at sea level in torr?
     self.temperature = 20.0     #Room temp in c.
 
   def setPressure(self, n):
@@ -19,18 +19,28 @@ class simulatedReactor:
     if self.pressure == n:
       return True
     elif self.pressure > n:
-      self.pressure -= 1000
+      self.pressure -= 10
       time.sleep(1)
       self.setPressure(n)
     elif self.pressure < n:
-      self.pressure += 1000
+      self.pressure += 10
       time.sleep(1)
       self.setPressure(n)
     else:
       print("ERROR")
 
+  def setCurrent(self, n):
+    self.displayInfo()
+    if self.current != n:
+      time.sleep(1)
+      self.current = n
+      self.displayInfo()
+    else:
+      print("ERROR")
+
   def updateTemp(self):
-    self.temperature = 40 - ((760000/self.pressure)*20)
+    #Totally random relationship between temperature and pressure.
+    self.temperature = (self.pressure/760)*20 
 
   def displayInfo(self):
     os.system('cls' if os.name == 'nt' else 'clear')
