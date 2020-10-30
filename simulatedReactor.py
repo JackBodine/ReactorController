@@ -18,6 +18,7 @@ class simulatedReactor:
   def __init__(self):
     self.pressure = 760         #Normal pressure at sea level in torr?
     self.temperature = 20.0     #Room temp in c.
+    self.externalNeutronCount = 0 #Count per minute (CPM).
 
   #This function sets the pressure to a given value.
   def setPressure(self, n):
@@ -66,7 +67,7 @@ class simulatedReactor:
     print("Pressure: ", self.pressure, "Torr")
     print("Current: ", self.current, "AMPS")
     print("Voltage: ", self.voltage, "kV")
-    print("External Neutron Count: ", self.externalNeutronCount, "")
+    print("External Neutron Count: ", self.externalNeutronCount, "CPM")
 
   def causeRandomEvent(self):
     events = ["vaccumLeak", "currentSurge", "powerEnd"]
@@ -78,12 +79,12 @@ class simulatedReactor:
   #These will simulate potential events that could happen.
   #It will be up to the controller to react and respond. 
   def event(self, name):
-    if name == "vaccumLeak":
-      print("EVENT: Vaccum Leak")
+    if name == "VacuumLeak":
+      print("EVENT: Vacuum Leak")
       rand = random.randrange(10,50,1)
       self.pressure -= rand
     elif name == "currentSurge":
-      print("EVENT: Surge in voltage")
+      print("EVENT: Surge in current")
       rand = random.randrange(0,20,1)
       self.voltage += rand
     elif name == "powerEnd":
